@@ -1,11 +1,11 @@
-
 # Counter App
 
-A simple Flutter app to increment and decrement a counter, featuring a custom button widget and a custom mobile app icon.
+A simple Flutter app to increment, decrement, and reset a counter. Includes a custom button widget, local data storage using `shared_preferences`, and a custom mobile app icon.
 
 ## Features
-- Counter functionality (increment/decrement/reset)
+- Counter functionality (increment, decrement, reset)
 - Custom button widget
+- Local data storage (counter value saved using `shared_preferences`)
 - Mobile app icon updated (using `flutter_launcher_icons`)
 - Responsive UI
 
@@ -18,7 +18,7 @@ A simple Flutter app to increment and decrement a counter, featuring a custom bu
 ### Installation & Run
 1. Clone the repository:
    ```sh
-   git clone https://github.com/ZeeshanTheCoder/DevelopersHub-Tasks
+   git clone https://github.com/ZeeshanTheCoder/DevelopersHub-Tasks.git
    ```
 2. Navigate to the project directory:
    ```sh
@@ -39,6 +39,9 @@ The mobile app icon has been changed using the `flutter_launcher_icons` package.
 flutter pub run flutter_launcher_icons:main
 ```
 
+### Local Storage
+This app uses the [`shared_preferences`](https://pub.dev/packages/shared_preferences) package to store the counter value locally on the device. The value persists between app launches.
+
 ## Project Structure
 ```
 lib/
@@ -58,4 +61,5 @@ web/                       # Web platform files
 ## License
 This project is licensed under the MIT License.
 
-> Made with ❤️ by **ZeeshanTheCoder**
+---
+Made with ❤️ by [ZeeshanTheCoder](https://github.com/ZeeshanTheCoder)
