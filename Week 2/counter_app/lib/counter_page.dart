@@ -1,5 +1,6 @@
 import 'package:counter_app/utility/custom_button.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CounterPage extends StatefulWidget {
   const CounterPage({super.key});
@@ -11,10 +12,31 @@ class CounterPage extends StatefulWidget {
 class _CounterPageState extends State<CounterPage> {
   int count = 0;
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    loadCount();
+  }
+
+  void loadCount() async {
+    final sp = await SharedPreferences.getInstance();
+    final savedCount = sp.getInt('count') ?? 0;
+    setState(() {
+      count = savedCount;
+    });
+  }
+
+  void saveCount() async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    sp.setInt('count', count);
+  }
+
   void increment() {
     setState(() {
       count++;
     });
+    saveCount();
   }
 
   void decrement() {
@@ -22,12 +44,14 @@ class _CounterPageState extends State<CounterPage> {
       setState(() {
         count--;
       });
+      saveCount();
     }
   }
 
   void reset() {
     setState(() {
       count = 0;
+      saveCount();
     });
   }
 
