@@ -9,15 +9,20 @@ A simple Flutter Todo application to add, delete, mark tasks as done, and save t
 - Search todo items using a search bar.
 - Persistent storage of todos using local device storage (SharedPreferences).
 - Beautiful animations for empty todo list using Lottie.
-- Mobile app icon updated (using `flutter_launcher_icons`)
-- Responsive UI
+- Mobile app icon updated (using `flutter_launcher_icons`).
+- Responsive UI for all device sizes.
 - Clean and modern UI with custom colors.
+- Support for both Dark and Light themes, with automatic switching based on system settings.
+- User avatar displayed in the app bar.
+- Real-time search filtering for todos.
+- Intuitive and minimalistic design for better user experience.
 
 ## Getting Started
 
 ### Prerequisites
 - [Flutter SDK](https://flutter.dev/docs/get-started/install)
 - Dart
+- IDE (Android Studio/ Microsoft Visual Studio Code)
 
 ### Installation & Run
 1. Clone the repository:
@@ -66,9 +71,11 @@ assets/
 - Loads todos from SharedPreferences on init.
 - Saves todos to local storage on add, delete, or toggle done status.
 - Provides UI for:
-  - Search box to filter todos.
+  - Search box to filter todos in real-time.
   - Displaying todo items or an empty animation.
   - Adding new todos via a text input field and a '+' button.
+  - Switching between Dark and Light themes automatically.
+  - Displaying user avatar in the app bar.
 - Uses TodoModel for todo data structure.
 - Uses TodoItem widget to display individual todo tasks.
 

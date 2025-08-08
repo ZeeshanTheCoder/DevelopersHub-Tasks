@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:todo_app/constants/colors.dart';
 import 'package:todo_app/model/todo_model.dart';
 import 'package:todo_app/widgets/todo_item.dart';
 
@@ -21,13 +20,11 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     _foundTodo = todoList;
     super.initState();
     _loadTodoList();
   }
 
-  // load todo list from local storage
   void _loadTodoList() async {
     final prefs = await SharedPreferences.getInstance();
     final String? todosString = prefs.getString('todos');
@@ -46,7 +43,6 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  // save data to local storage
   void _saveData() async {
     final sp = await SharedPreferences.getInstance();
     final String encodedData =
@@ -54,7 +50,6 @@ class _HomePageState extends State<HomePage> {
     sp.setString('todos', encodedData);
   }
 
-  // handle change of todo item
   void _handleChange(TodoModel todo) {
     setState(() {
       todo.isDone = !todo.isDone;
@@ -62,7 +57,6 @@ class _HomePageState extends State<HomePage> {
     _saveData();
   }
 
-  // delete todo item
   void _deleteTodoItem(String id) {
     setState(() {
       todoList.removeWhere((item) => item.id == id);
@@ -70,7 +64,6 @@ class _HomePageState extends State<HomePage> {
     _saveData();
   }
 
-  // add new todo item
   void _addTodoItem(String todo) {
     setState(() {
       todoList.add(
@@ -79,7 +72,6 @@ class _HomePageState extends State<HomePage> {
     _saveData();
   }
 
-  // filter todo items based on search input
   void _runFilter(String enteredkeyword) {
     List<TodoModel> results = [];
     if (enteredkeyword.isEmpty) {
@@ -99,7 +91,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: tdBGColor,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: _buildAppBar(),
       body: Stack(
         children: [
@@ -126,7 +118,10 @@ class _HomePageState extends State<HomePage> {
                                   "No Todos Found",
                                   style: TextStyle(
                                     fontSize: 20,
-                                    color: tdGrey,
+                                    color: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium
+                                        ?.color,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -139,12 +134,15 @@ class _HomePageState extends State<HomePage> {
                             Container(
                               margin: EdgeInsets.symmetric(vertical: 20),
                               child: Center(
-                                child: const Text(
+                                child: Text(
                                   "All Todos",
                                   style: TextStyle(
                                     fontSize: 30,
                                     fontWeight: FontWeight.w500,
-                                    color: tdBlack,
+                                    color: Theme.of(context)
+                                        .textTheme
+                                        .bodyLarge
+                                        ?.color,
                                   ),
                                 ),
                               ),
@@ -155,9 +153,7 @@ class _HomePageState extends State<HomePage> {
                                 onTodoChanged: _handleChange,
                                 onDeleteItem: _deleteTodoItem,
                               ),
-                            SizedBox(
-                              height: 50,
-                            )
+                            SizedBox(height: 50),
                           ],
                         ),
                 ),
@@ -173,7 +169,7 @@ class _HomePageState extends State<HomePage> {
                     margin: EdgeInsets.only(bottom: 5, right: 20, left: 20),
                     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: Theme.of(context).cardColor,
                       boxShadow: [
                         BoxShadow(
                           color: Colors.grey,
@@ -188,6 +184,8 @@ class _HomePageState extends State<HomePage> {
                       controller: _todoController,
                       decoration: InputDecoration(
                         hintText: "Add a new Todo Item",
+                        hintStyle:
+                            Theme.of(context).inputDecorationTheme.hintStyle,
                         border: InputBorder.none,
                       ),
                     ),
@@ -207,7 +205,7 @@ class _HomePageState extends State<HomePage> {
                       style: TextStyle(fontSize: 40),
                     ),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: tdBlue,
+                      backgroundColor: Theme.of(context).primaryColor,
                       foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -229,7 +227,7 @@ class _HomePageState extends State<HomePage> {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 15),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(20),
       ),
       child: TextField(
@@ -238,7 +236,7 @@ class _HomePageState extends State<HomePage> {
           contentPadding: EdgeInsets.all(0),
           prefixIcon: Icon(
             Icons.search,
-            color: tdBlack,
+            color: Theme.of(context).iconTheme.color,
             size: 20,
           ),
           prefixIconConstraints: BoxConstraints(
@@ -247,9 +245,7 @@ class _HomePageState extends State<HomePage> {
           ),
           border: InputBorder.none,
           hintText: 'Search Text here',
-          hintStyle: TextStyle(
-            color: tdGrey,
-          ),
+          hintStyle: Theme.of(context).inputDecorationTheme.hintStyle,
         ),
       ),
     );
@@ -257,14 +253,11 @@ class _HomePageState extends State<HomePage> {
 
   AppBar _buildAppBar() {
     return AppBar(
-      backgroundColor: tdBGColor,
-      elevation: 0,
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Icon(
             Icons.menu,
-            color: tdBlack,
             size: 30,
           ),
           Container(

@@ -16,6 +16,8 @@ class TodoItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Container(
       padding: EdgeInsets.only(bottom: 20),
       child: ListTile(
@@ -26,31 +28,29 @@ class TodoItem extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
         ),
         contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-        tileColor: Colors.white,
+        tileColor: isDark ? Colors.grey[900] : Colors.white,
         leading: Icon(
           todo.isDone ? Icons.check_box : Icons.check_box_outline_blank,
-          color: tdBlue,
+          color: Theme.of(context).primaryColor,
           size: 30,
         ),
         title: Text(
           todo.title.toString(),
           style: TextStyle(
             fontSize: 16,
-            color: tdBlack,
+            color: Theme.of(context).textTheme.bodyLarge?.color,
             decoration: todo.isDone ? TextDecoration.lineThrough : null,
           ),
         ),
-        trailing: Container(
-          child: IconButton(
-            icon: Icon(
-              Icons.delete,
-              color: tdRed,
-              size: 30,
-            ),
-            onPressed: () {
-              onDeleteItem(todo.id);
-            },
+        trailing: IconButton(
+          icon: Icon(
+            Icons.delete,
+            color: tdRed,
+            size: 30,
           ),
+          onPressed: () {
+            onDeleteItem(todo.id);
+          },
         ),
       ),
     );
