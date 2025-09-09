@@ -62,3 +62,5 @@ See [build/flutter_assets/NOTICES](build/flutter_assets/NOTICES) for licenses of
 ---
 
 **Note:** This project is for educational purposes. Do not use API keys or credentials from this repository in production apps.
+
+> Made with ❤️ by **ZeeshanTheCoder**
